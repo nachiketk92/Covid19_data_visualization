@@ -5,6 +5,7 @@ Created on Tue Apr 14 16:07:45 2020
 
 @author: nachiketkale
 """
+# %%
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -18,4 +19,9 @@ country_data=df.iloc[8,1:7].replace(',','',regex=True).astype(float)
 plt.pie(country_data, autopct='%1.1f%%', shadow=True, startangle=240)
 plt.title("Percentage chart")
 plt.show()
- 
+#pie chart for world and continent 
+World_and_continent_data=df.iloc[7,1:7].replace(',','',regex=True).astype(float)
+plt.pie(World_and_continent_data, autopct='%1.1f%%', shadow=True, startangle=240)
+plt.title("Percentage chart")
+plt.show()
+
