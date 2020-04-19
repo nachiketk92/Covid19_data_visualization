@@ -5,6 +5,7 @@ Created on Tue Apr 14 16:06:44 2020
 
 @author: nachiketkale
 """
+# %%
 import requests
 import csv
 from bs4 import BeautifulSoup
