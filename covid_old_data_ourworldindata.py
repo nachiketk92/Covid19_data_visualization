@@ -20,7 +20,7 @@ req = requests.get(url)
 #request the content from url 
 url_content = req.content
 #opening new cvs file to write the data extracted from url
-csv_file = open('owid-covid-data.csv', 'wb')
+csv_file = open('owid-covid-data.csv', 'wb')s
 #write the downloaded content in newly created csv file
 csv_file.write(url_content)
 # closing the csv file
