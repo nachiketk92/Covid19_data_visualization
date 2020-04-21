@@ -8,6 +8,7 @@ Created on Tue Apr 14 16:06:44 2020
 
 @author: nachiketkale
 """
+# %%
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
