@@ -20,7 +20,7 @@ req = requests.get(url)
 #request the content from url 
 url_content = req.content
 #opening new cvs file to write the data extracted from url
-csv_file = open('owid-covid-data.csv', 'wb')s
+csv_file = open('owid-covid-data.csv', 'wb')
 #write the downloaded content in newly created csv file
 csv_file.write(url_content)
 # closing the csv file
@@ -33,9 +33,9 @@ df=df.drop(['iso_code','new_cases_per_million','new_tests','total_tests_per_thou
 #Creating new column in dataframe with no data
 df['Continent']=np.nan
 #Inserting multiple empty columns in dataframe
-df.insert(6,'Total Recovered', np.full(12242,np.nan))
-df.insert(7,'Active Cases', np.full(12242,np.nan))
-df.insert(8,'Seriouc, Critical', np.full(12242,np.nan))
+df.insert(6,'Total Recovered', np.full(12246,np.nan))
+df.insert(7,'Active Cases', np.full(12246,np.nan))
+df.insert(8,'Seriouc, Critical', np.full(12246,np.nan))
 #Renaming all the columns
 df.columns = ['Countries','Date',"Total Cases","New Cases","Total Deaths", "New Deaths","Total Recovered","Active Cases","Serious,Critical","Total Cases/1M people","Total Death/1M people","Total Tests","Tests/1M people","Continent"]
 #Changing data type for date column
@@ -55,6 +55,6 @@ def csv_for_each_country(Country):
 for i in countries:
     csv_for_each_country(i)
     
-    
+ 
     
     

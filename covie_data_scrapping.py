@@ -8,7 +8,6 @@ Created on Tue Apr 14 16:06:44 2020
 
 @author: nachiketkale
 """
-# %%
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -41,9 +40,9 @@ for i in range(len(get_table_data)):
 #Transposing the dataframe and storing the data from dictionary in dataframe df
 df=pd.DataFrame(dic).iloc[1:,:].T
 #Defining new list for countries
-column_names=["Total Cases","New Cases","Total Deaths", "New Deaths","Total Recovered","Active Cases","Serious,Critical","Total Cases/1M people","Total Death/1M people","Total Tests","Tests/1M people","Continent"]
-# Updating Index name 
-df.index_name="Country, Others"
+column_names=["Countries","Total Cases","New Cases","Total Deaths", "New Deaths","Total Recovered","Active Cases","Serious,Critical","Total Cases/1M people","Total Death/1M people","Total Tests","Tests/1M people","Continent"]
+#Change Index as a column
+df=df.reset_index()
 # Updating column names
 df.columns=column_names
 #Insert new column date with time stamp
@@ -55,6 +54,9 @@ df.to_csv(datetime.now().strftime('covid_data_worldometer-%Y-%m-%d.csv'))
 
 
 
+
+
+    
     
     
     
