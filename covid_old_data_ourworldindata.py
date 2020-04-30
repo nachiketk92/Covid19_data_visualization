@@ -11,8 +11,8 @@ Created on Sun Apr 19 17:29:21 2020
 import pandas as pd
 import numpy as np
 import datetime as dt
-import os
 import requests
+from covid_old_data_to_database import DataframetoMysql
 #url from where CSV file is downloaded
 url="https://covid.ourworldindata.org/data/owid-covid-data.csv"
 # get request to get data from url
@@ -39,26 +39,23 @@ df.columns = ['Countries','Date',"Total Cases","New Cases","Total Deaths", "New 
 #Changing data type for date column
 df['Date']=[dt.datetime.strptime(x,'%Y-%m-%d') for x in df['Date']]
 #Make Date column as an index column
-df.set_index('Date',inplace=True)
+#df.set_index('Date',inplace=True)
 #Defining new list for countries
 countries=df['Countries'].unique().tolist()
-    
-#Defining new function which will take in a country name as an argument and create new csv file
-# for each country with updated column name
-def csv_for_each_country(Country):
-    new_df=df.loc[df['Countries']=='{}'.format(Country)]
-    new_df=new_df.drop(['Countries'],axis=1)
-    new_df.to_csv('{}.csv'.format(Country))
-    
-    
- #Creates seperate csv file for each country data   
-for i in countries:
-    csv_for_each_country(i)
-    
- 
-#To change country names to match the names from worldometer data
 existing_names=['United States','United Kingdom','South Korea','United Arab Emirates','Vatican','Central African Republic','Democratic Republic of Congo','Saint Vincent and the Grenadines','Czech Republic','Sint Maarten (Dutch part)','Timor',"Cote d'Ivoire",'Curacao','Macedonia','Cape Verde','Bonaire Sint Eustatius and Saba','Turks and Caicos Islands']
 new_names=['USA','UK','S. Korea','UAE','Vatican City','CAR','DRC','St. Vincent Grenadines','Czechia','Saint Martin','Timor-Leste','Ivory Coast','Curaçao','North Macedonia','Cabo Verde','Caribbean Netherlands','Turks and Caicos']
-for i in range(len(existing_names)):
-    os.rename('{}.csv'.format(countries[countries.index(existing_names[i])]),'{}.csv'.format(new_names[i]) )    
+
+# for loop to simultaniously change the name of countries as needed and save the seperatedataframes to database
+for i in countries:
+    new_df=df.loc[df['Countries']=='{}'.format(i)]
+    new_df=new_df.drop(['Countries'],axis=1)
+    if i in existing_names:
+        DataframetoMysql(new_df,new_names[existing_names.index(i)])
+    else:
+        DataframetoMysql(new_df,i)
+        
+        
     
+    
+
+      
