@@ -10,7 +10,6 @@ Created on Sun Apr 19 17:29:21 2020
 """
 import pandas as pd
 import numpy as np
-import datetime as dt
 import requests
 from covid_old_data_to_database import DataframetoMysql
 #url from where CSV file is downloaded
@@ -29,30 +28,33 @@ csv_file.close()
 # The redundency in the operation is there as the download section will be removed in future
 df = pd.read_csv("owid-covid-data.csv")
 #Dropping specific columns from dataframe which we do not need
-df=df.drop(['iso_code','new_cases_per_million','new_tests','total_tests_per_thousand','new_tests_per_thousand','tests_units'], axis=1)
+df=df.drop(['new_cases_per_million','new_tests','total_tests_per_thousand','new_tests_per_thousand','tests_units','new_deaths_per_million'], axis=1)
 #Inserting multiple empty columns in dataframe
-df.insert(6,'Total Recovered', np.full(len(df),np.nan))
-df.insert(7,'Active Cases', np.full(len(df),np.nan))
-df.insert(8,'Seriouc, Critical', np.full(len(df),np.nan))
-#Renaming all the columns
-df.columns = ['Countries','Date',"Total Cases","New Cases","Total Deaths", "New Deaths","Total Recovered","Active Cases","Serious,Critical","Total Cases/1M people","Total Death/1M people","Total Tests","Tests/1M people"]
-#Changing data type for date column
-df['Date']=[dt.datetime.strptime(x,'%Y-%m-%d') for x in df['Date']]
-#Make Date column as an index column
-#df.set_index('Date',inplace=True)
-#Defining new list for countries
-countries=df['Countries'].unique().tolist()
+df.insert(7,'total_recovered', np.full(len(df),np.nan))
+df.insert(8,'active_cases', np.full(len(df),np.nan))
+df.insert(9,'seriouc', np.full(len(df),np.nan))
+#
+df=df.rename(columns={"location": "country"})
+#list of country names which are different in old and new data
 existing_names=['United States','United Kingdom','South Korea','United Arab Emirates','Vatican','Central African Republic','Democratic Republic of Congo','Saint Vincent and the Grenadines','Czech Republic','Sint Maarten (Dutch part)','Timor',"Cote d'Ivoire",'Curacao','Macedonia','Cape Verde','Bonaire Sint Eustatius and Saba','Turks and Caicos Islands']
 new_names=['USA','UK','S. Korea','UAE','Vatican City','CAR','DRC','St. Vincent Grenadines','Czechia','Saint Martin','Timor-Leste','Ivory Coast','Curaçao','North Macedonia','Cabo Verde','Caribbean Netherlands','Turks and Caicos']
+#change the name of countries as needed to match with future data
+for i in range(len(existing_names)):
+    df=df.replace(existing_names[i],new_names[i])
+    
+# saving country code and country name to database with new table    
+total_df=df[['iso_code','country']].copy()
+total_df=total_df.drop_duplicates('country')
+total_df=total_df.dropna()
+total_df=total_df.reset_index()
+total_df=total_df.drop(['index'],axis=1)
+DataframetoMysql(total_df,'country_iso_code')
 
-# for loop to simultaniously change the name of countries as needed and save the seperatedataframes to database
-for i in countries:
-    new_df=df.loc[df['Countries']=='{}'.format(i)]
-    new_df=new_df.drop(['Countries'],axis=1)
-    if i in existing_names:
-        DataframetoMysql(new_df,new_names[existing_names.index(i)])
-    else:
-        DataframetoMysql(new_df,i)
+#Saving total data to database
+data=df.drop(['iso_code'],axis=1)
+data=data[data.country!='International']
+data=data[data.country!='World']
+DataframetoMysql(data,'covid19_data')
         
         
     
