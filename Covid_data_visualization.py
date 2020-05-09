@@ -4,38 +4,19 @@
 Created on Tue Apr 14 16:07:45 2020
 @author: nachiketkale
 """
-import pandas as pd
+
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import seaborn as sns
-import mysql.connector
 from pandas.plotting import register_matplotlib_converters
 
-mydb = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  passwd="N@ch1ket",
-  database="covid19"
-)
-#creating cursor object
-mycursor = mydb.cursor()
-#mySQL query 
-mycursor.execute("select *from covid19_data where country='Canada' ")
-#fetching the result of mySQL query
-myresult = mycursor.fetchall()
-#Converting all data to string
-str(myresult)[0:len(myresult)]
-#Creating a dataframe
-df = pd.DataFrame( [[ij for ij in i] for i in myresult] )
-df.rename(columns={ 1: 'country',2:'date', 3: 'total_cases', 4: 'new_cases', 5:'total_deaths',6:'new_deaths',7:'total_recovered',8:'active_cases',9:'serious',10:'total_cases_per_million',11:'total_deaths_per_million',12:'total_tests'}, inplace=True);
 # Handle date time conversions between pandas and matplotlib
 register_matplotlib_converters()
 
-df[[]]
 
 
     
-def multiple_line_subplots (df,country_data):
+def multiple_line_subplots (df,country):
     # Use white grid plot background from seaborn
     sns.set(font_scale=1.5, style="whitegrid")
     #Create figure and plot space (axis object)
@@ -49,7 +30,7 @@ def multiple_line_subplots (df,country_data):
     #seting margins so that plot will start from baseline
     ax.margins(x=0)
     # Settitle and labels for axes
-    ax.set(xlabel="Date",ylabel="Total Cases",title="%s"%country_data)
+    ax.set(xlabel="Date",ylabel="Total Cases",title="%s"%country)
     #autoformat date on x axis
     fig.autofmt_xdate()
     #
@@ -60,7 +41,7 @@ def multiple_line_subplots (df,country_data):
     plt.setp(ax.get_xticklabels(), rotation=45, horizontalalignment='right')
     plt.show()
     #save plot with specific file name
-    plt.savefig('%s_comparision.png'%country_data)
+    plt.savefig('%s_comparision.png'%country)
     
 def single_line_plot(df,country,data_column):
     # Use white grid plot background from seaborn
@@ -68,7 +49,7 @@ def single_line_plot(df,country,data_column):
     #Create figure and plot space (axis object)
     fig, ax = plt.subplots(figsize=(8, 8))
     # Add x-axis and y-axis
-    ax.plot(df['date'],df['data'],color='blue')
+    ax.plot(df['date'],df['%s']%data_column,color='blue')
     ax.margins(x=0)
     # Settitle and labels for axes
     ax.set(xlabel="Date",ylabel="data",title="%s"%data_column)
