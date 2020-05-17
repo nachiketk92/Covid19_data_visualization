@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import numpy as np
 from  datetime import datetime
-from saving_worldometer_data_to_database import DataframetoMysql
+from _4_saving_worldometer_data_to_database import DataframetoMysql
      
 #MAke a get request to url
 url=requests.get("https://www.worldometers.info/coronavirus/")
