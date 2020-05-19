@@ -19,6 +19,12 @@ from sklearn.impute import SimpleImputer
 imputer = SimpleImputer(missing_values=np.nan, strategy='mean')
 imputer.fit(x[:, 2:4])
 x[:, 2:4] = imputer.transform(x[:, 2:4])
+
+# Encoding categorical data
+# Encoding the Independent Variable
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OneHotEncoder
+
 def simple_linear_regression():
     pass
     
