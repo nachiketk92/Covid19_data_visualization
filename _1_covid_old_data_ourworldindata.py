@@ -8,10 +8,11 @@ Created on Sun Apr 19 17:29:21 2020
 
 @author: nachiketkale
 """
+
 import pandas as pd
 import numpy as np
 import requests
-from covid_old_data_to_database import DataframetoMysql
+from _2_covid_old_data_to_database import DataframetoMysql
 #url from where CSV file is downloaded
 url="https://covid.ourworldindata.org/data/owid-covid-data.csv"
 # get request to get data from url
