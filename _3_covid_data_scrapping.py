@@ -44,6 +44,7 @@ df=pd.DataFrame(dic).iloc[1:11,:].T
 column_names=["country","total_cases","new_cases","total_deaths", "new_deaths","total_recovered","active_cases","serious","total_cases_per_million","total_deaths_per_million","total_tests"]
 #Change Index as a column
 df=df.reset_index()
+df.to_csv('new.csv')
 # Updating column names
 df.columns=column_names
 #Insert new column date with time stamp
