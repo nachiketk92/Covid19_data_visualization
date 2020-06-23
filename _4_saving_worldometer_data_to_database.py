@@ -12,7 +12,7 @@ from sqlalchemy import create_engine
 
 def DataframetoMysql(df):
     #create an engine using sqlalchemy
-    engine = create_engine("mysql+pymysql://root:N@ch1ket@localhost/covid19") 
+    engine = create_engine("mysql+pymysql://root:password@localhost/covid19") 
     con=engine.connect()
     try:
         df.to_sql(name='covid19_data',con=con, if_exists='append',index=False)

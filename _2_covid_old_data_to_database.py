@@ -15,7 +15,7 @@ import pandas as pd
 def DataframetoMysql(df,name):
     #create an engine using sqlalchemy
     #Add admin account for the root
-    engine = create_engine("mysql+pymysql://root:N@ch1ket@localhost/covid19") 
+    engine = create_engine("mysql+pymysql://root:bhosada007@localhost/covid19") 
     con=engine.connect()
     metadata =MetaData(engine)
     metadata.create_all(engine)
