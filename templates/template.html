@@ -1,0 +1,28 @@
+ <!DOCTYPE html>
+<html lang="en" dir="ltr">
+ <head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width">
+   <link rel="stylesheet" href="{{url_for('static', filename ='css/main.css')}}">
+   {%block head%} {%endblock%}
+ </head>
+ <body>
+    <header>
+      <div class="container">
+        <h1 class="logo">Covid Data Visualization with Python</h1 display :'center'>
+        <strong><nav>
+          <ul class="menu">
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+          </form>
+          </ul>
+        </nav></strong>
+      </div>
+    </header>     
+    </div> 
+    {% block body %}
+  {% endblock %} 
+  {%block table%} 
+  {%endblock%}
+ </body>
+</html>

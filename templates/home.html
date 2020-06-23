@@ -1,0 +1,51 @@
+
+{% extends "template.html" %}
+{% block head %}
+<title>Covid 19 Data Visualization</title>
+<div class="home">
+  <h1> This site was created solely for study purpose. </h1>
+  <p> covid-19 data</p>
+</div>
+{%endblock%}
+
+{%block table%}
+<div class='Covid data table'>
+  <table style="margin-left: 15px;" border="1">
+    <thead>
+      <tr>
+        <th>Country</th>
+        <th>Date</th>
+        <th>Total Cases</th>
+        <th>New Cases</th>
+        <th>Total Deaths</th>
+        <th>New Deaths</th>
+        <th>Total Recovered</th>
+        <th>Active Cases</th>
+        <th>Serious</th>
+        <th>Total Cases/1M</th>
+        <th>Total Deaths /1M</th>
+        <th>Total Tests</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in data %} 
+      <tr>    
+        <td>{{row[1]}}</td>
+        <td>{{row[2]}}</td>
+        <td>{{row[3]}}</td>
+        <td>{{row[4]}}</td>
+        <td>{{row[5]}}</td>
+        <td>{{row[6]}}</td>
+        <td>{{row[7]}}</td>
+        <td>{{row[8]}}</td>
+        <td>{{row[9]}}</td>
+        <td>{{row[10]}}</td>
+        <td>{{row[11]}}</td>
+        <td>{{row[12]}}</td>
+      </tr>
+      {% endfor %}        
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+  
