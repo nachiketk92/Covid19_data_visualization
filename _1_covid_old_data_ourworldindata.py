@@ -29,12 +29,13 @@ csv_file.close()
 # The redundency in the operation is there as the download section will be removed in future
 df = pd.read_csv('owid-covid-data.csv')
 #Dropping specific columns from dataframe which we do not need
-df=df.drop(['new_cases_per_million','new_tests','total_tests_per_thousand','new_tests_per_thousand','tests_units','new_deaths_per_million'], axis=1)
+df=df.drop(['new_tests_smoothed','continent','new_cases_per_million','new_tests','total_tests_per_thousand','new_tests_per_thousand','tests_units','new_deaths_per_million','new_tests_smoothed', 'new_tests_smoothed_per_thousand', 'stringency_index', 'population', 'population_density', 'median_age', 'aged_65_older', 'aged_70_older', 'gdp_per_capita', 'extreme_poverty', 'cvd_death_rate', 'diabetes_prevalence', 'female_smokers', 'male_smokers', 'handwashing_facilities', 'hospital_beds_per_thousand', 'life_expectancy'], axis=1)
 #Inserting multiple empty columns in dataframe
 df.insert(7,'total_recovered', np.full(len(df),np.nan))
 df.insert(8,'active_cases', np.full(len(df),np.nan))
 df.insert(9,'seriouc', np.full(len(df),np.nan))
 #
+df=df[df.iso_code!= 'OWID_KOS']
 df=df.rename(columns={"location":'country'})
 #list of country names which are different in old and new data
 existing_names=['United States','United Kingdom','South Korea','United Arab Emirates','Vatican','Central African Republic','Democratic Republic of Congo','Saint Vincent and the Grenadines','Czech Republic','Sint Maarten (Dutch part)','Timor',"Cote d'Ivoire",'Curacao','Macedonia','Cape Verde','Bonaire Sint Eustatius and Saba','Turks and Caicos Islands']
@@ -50,6 +51,8 @@ total_df=total_df.dropna()
 total_df=total_df[total_df.country!='International']
 total_df=total_df[total_df.country!='World']
 total_df=total_df.reset_index(drop=True)
+
+#total_df.to_excel('new.xlsx')
 DataframetoMysql(total_df,'country_iso_code')
 
 #Saving total data to database

@@ -15,7 +15,7 @@ import pandas as pd
 def DataframetoMysql(df,name):
     #create an engine using sqlalchemy
     #Add admin account for the root
-    engine = create_engine("mysql+pymysql://root:N@ch1ket@localhost/covid19") 
+    engine = create_engine("mysql+pymysql://root:bhosada007@localhost/covid19") 
     con=engine.connect()
     metadata =MetaData(engine)
     metadata.create_all(engine)
@@ -26,7 +26,7 @@ def DataframetoMysql(df,name):
     # Creating mySQL table
     if not engine.dialect.has_table(engine, 'covid19_data'):
         covid19_data= Table ('covid19_data', metadata,
-                         Column('iso_code', String(5),PRIMARY_KEY=True),
+                         Column('iso_code', VARCHAR(15),PRIMARY_KEY=True),
                          Column('country',String(50)),
                          Column('date',DATE),
                          Column('total_cases',Integer),
@@ -45,7 +45,7 @@ def DataframetoMysql(df,name):
     
     if not engine.dialect.has_table(engine,'country_iso_code' ):
         country_iso_code= Table('country_iso_code',metadata,
-                            Column('iso_code', String(4),PRIMARY_KEY=True),
+                            Column('iso_code', VARCHAR(15),PRIMARY_KEY=True),
                             Column('country',String(50))
             )
         country_iso_code.create()
