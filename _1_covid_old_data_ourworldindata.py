@@ -12,6 +12,7 @@ Created on Sun Apr 19 17:29:21 2020
 import pandas as pd
 import numpy as np
 import requests
+from sqlalchemy import *
 from _2_covid_old_data_to_database import DataframetoMysql
 
 def ourworldindataToDatabase():
@@ -44,6 +45,9 @@ def ourworldindataToDatabase():
     #change the name of countries as needed to match with future data
     for i in range(len(existing_names)):
         df=df.replace(existing_names[i],new_names[i])
+
+
+    
    # saving country code and country name to database with new table    
     total_df=df[['iso_code','country']].copy()
     total_df=total_df.drop_duplicates('country')
@@ -51,7 +55,6 @@ def ourworldindataToDatabase():
     total_df=total_df[total_df.country!='International']
     total_df=total_df[total_df.country!='World']
     total_df=total_df.reset_index(drop=True)
-    total_df.to_csv('new1.csv')
     DataframetoMysql(total_df,'country_iso_code')
     #Saving total data to database
     #drop country column in future once auto update by getting country_code and dropping country column in woldometer is done

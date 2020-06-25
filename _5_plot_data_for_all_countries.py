@@ -7,7 +7,7 @@ Created on Wed May  6 15:46:17 2020
 """
 import mysql.connector
 import pandas as pd
-from Covid_data_visualization import multiple_line_subplots, single_line_plot, pie_chart, bar_chart
+from _6_Covid_data_visualization import multiple_line_subplots, single_line_plot, pie_chart, bar_chart
 
 mydb = mysql.connector.connect(
   host="localhost",
@@ -25,6 +25,7 @@ myresult = mycursor.fetchall()
 str(myresult)[0:len(myresult)]
 #Creating a dataframe
 country_df = pd.DataFrame( [[ij for ij in i] for i in myresult] )
+country_df.rename(columns={ 1: 'iso_code',2:'country'},inplace=True)
 countries=country_df['country'].to_list()
 
 for country in countries:

@@ -39,7 +39,6 @@ def multiple_line_subplots (df,country):
     ax.xaxis.set_major_locator(plt.MaxNLocator(9))
     #rotate tick by 45 degree for horizontal allignment
     plt.setp(ax.get_xticklabels(), rotation=45, horizontalalignment='right')
-    plt.show()
     #save plot with specific file name
     plt.savefig('%s_comparision.png'%country)
     
@@ -57,7 +56,6 @@ def single_line_plot(df,country,data_column):
     ax.fmt_xdata = mdates.DateFormatter('%Y-%m-%d')
     ax.xaxis.set_major_locator(plt.MaxNLocator(9))
     plt.setp(ax.get_xticklabels(), rotation=45, horizontalalignment='right')
-    plt.show()
     plt.savefig('%s_%s.png'%(country,data_column))
 
 def pie_chart():

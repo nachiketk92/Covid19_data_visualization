@@ -11,7 +11,7 @@ body {
  * Formatting the header area
  */
 header {
-  background-color: yellow;
+  background-color: blue;
   height: 35px;
   width: 100%;
   opacity: .9;
@@ -20,7 +20,7 @@ header {
 title{
   margin: 0;
   font-size: 1.7em;
-  color: blue;
+  color: green;
   text-transform: uppercase;
   float: left;
 }

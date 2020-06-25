@@ -1,16 +1,12 @@
+{%block body%} 
 
-{% extends "template.html" %}
-{% block head %}
-<title>Covid 19 Data Visualization</title>
-<div class="home">
-  <h1> This site was created solely for study purpose. </h1>
-  <p> covid-19 data</p>
-</div>
-{%endblock%}
+<h1><center>Country</center></h1>
 
-{%block table%}
-<div class='Covid data table'>
-  <table style="margin-left: 15px;" border="1">
+<form class="Country" method="POST" action="/search/"  style="margin:auto;max-width:900px">
+   <input type="text" placeholder="search country by name" name="country" id="country">
+   <button type="submit"><i class="fa fa-search"></i>Insert</button>
+</form>
+<table style="margin-left: 15px;" border="1">
     <thead>
       <tr>
         <th>iso_code</th>
@@ -30,7 +26,8 @@
     </thead>
     <tbody>
       {% for row in data %} 
-      <tr>   
+      <tr>
+        <td>{{row[0]}}</td>     
         <td>{{row[1]}}</td>
         <td>{{row[2]}}</td>
         <td>{{row[3]}}</td>
@@ -43,11 +40,10 @@
         <td>{{row[10]}}</td>
         <td>{{row[11]}}</td>
         <td>{{row[12]}}</td>
-        <td>{{row[13]}}</td>
+       
       </tr>
       {% endfor %}        
     </tbody>
   </table>
-</div>
-{% endblock %}
-  
+
+{%endblock%}
