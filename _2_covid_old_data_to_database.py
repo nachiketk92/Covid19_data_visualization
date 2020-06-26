@@ -1,15 +1,10 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 Created on Thu Apr 23 14:42:07 2020
-
 @author: nachiketkale
-
 This function takes one arguments dataframe   
 and it loads that dataframe to database as a table
 """
-from sqlalchemy import *
-
+from sqlalchemy import create_engine,MetaData
 import pandas as pd
 
 def DataframetoMysql(df,name):
@@ -24,7 +19,6 @@ def DataframetoMysql(df,name):
     #SPECIFY WHICH DATABSE YOU ARE USING
     #Creating new table in database
 
-
     try:
         if name=='covid19_data':
             df.to_sql(name='covid19_data',con=con, if_exists='append',index=False)
@@ -38,11 +32,4 @@ def DataframetoMysql(df,name):
     except Exception as ex:
         print (ex)
     finally:
-        con.close()
-    
-        
-        
-        
-    
-        
-        
+        con.close()     

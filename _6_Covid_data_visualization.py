@@ -1,20 +1,13 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 Created on Tue Apr 14 16:07:45 2020
 @author: nachiketkale
 """
-
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import seaborn as sns
 from pandas.plotting import register_matplotlib_converters
-
 # Handle date time conversions between pandas and matplotlib
 register_matplotlib_converters()
-
-
-
     
 def multiple_line_subplots (df,country):
     # Use white grid plot background from seaborn
@@ -48,7 +41,7 @@ def single_line_plot(df,country,data_column):
     #Create figure and plot space (axis object)
     fig, ax = plt.subplots(figsize=(8, 8))
     # Add x-axis and y-axis
-    ax.plot(df['date'],df['%s']%data_column,color='blue')
+    ax.plot(df['date'],df[data_column],color='blue')
     ax.margins(x=0)
     # Settitle and labels for axes
     ax.set(xlabel="Date",ylabel="data",title="%s"%data_column)
@@ -74,24 +67,4 @@ def bar_chart(df,country):
     plt.setp(ax.get_xticklabels(), rotation=45, horizontalalignment='right')
     ax.xaxis.set_major_locator(plt.MaxNLocator(25))
     ax.xaxis.set_major_locator(plt.MaxNLocator(20))
-    plt.show()
     plt.savefig('%s_new_cases.png'%(country))
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

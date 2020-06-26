@@ -15,7 +15,6 @@ db=SQLAlchemy(app)
 class Covid19_data(db.Model):
     __tablename__ = 'covid19_data'
     id=db.Column(db.Integer,primary_key=True)
-    iso_code=db.Column(db.VARCHAR(15))
     country=db.Column(db.String(50))
     date=db.Column(db.DATE)
     total_cases=db.Column(db.Integer)
@@ -101,7 +100,7 @@ def search():
         country = request.form['country']
         cursor = connectionObject.cursor()
         # search by country
-        cursor.execute("""SELECT  distinct iso_code,country, date,total_cases,new_cases,total_deaths,new_deaths,total_recovered,
+        cursor.execute("""SELECT  distinct country, date,total_cases,new_cases,total_deaths,new_deaths,total_recovered,
 active_cases,serious,total_cases_per_million,total_deaths_per_million,total_tests from covid19_data WHERE country LIKE %s """,( country))
         connectionObject.commit()
         data = cursor.fetchall()

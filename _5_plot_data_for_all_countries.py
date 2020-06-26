@@ -43,4 +43,3 @@ for country in countries:
     single_line_plot(df,country,'total_deaths')
     single_line_plot(df,country,'total_recovered')
     bar_chart(df,country)
-    
