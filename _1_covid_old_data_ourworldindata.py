@@ -23,6 +23,22 @@ def ourworldindataToDatabase():
     df=pd.read_csv(io.StringIO(req))
     #Dropping specific columns from dataframe which we do not need this columns might be used in future
     df=df.drop(['new_tests_smoothed','continent','new_cases_per_million','new_tests','total_tests_per_thousand','new_tests_per_thousand','tests_units','new_deaths_per_million','new_tests_smoothed', 'new_tests_smoothed_per_thousand', 'stringency_index', 'population', 'population_density', 'median_age', 'aged_65_older', 'aged_70_older', 'gdp_per_capita', 'extreme_poverty', 'cvd_death_rate', 'diabetes_prevalence', 'female_smokers', 'male_smokers', 'handwashing_facilities', 'hospital_beds_per_thousand', 'life_expectancy'], axis=1)
+    list1=df.iso_code.unique()
+    #Remove null values from list
+    list1 = [x for x in list1 if str(x) != 'nan']
+    l2=[]
+    #Standard length is 3(can be 4 if we are considering World). For loop is extracting values having length >3
+    for i in list1:
+       if len(i) > 3:
+         l2.append(i)
+    print(l2)
+    #For iso_code>3, only select last 3 chars as country code
+    for i, row in df.iterrows():
+        old_src = row['iso_code']
+        if old_src in l2:
+            new_src = old_src[-3:]
+            df['iso_code'].values[i] = new_src
+
     # Hear a specific row which was creating a problem while applending the data to data base is removed
     df=df[df.iso_code!= 'OWID_KOS']
     #Inserting multiple empty columns in dataframe 
