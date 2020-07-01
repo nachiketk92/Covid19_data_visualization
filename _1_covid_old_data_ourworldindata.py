@@ -41,7 +41,6 @@ def ourworldindataToDatabase():
    # saving country code and country name to database with new table    
     total_df=df[['iso_code','country']].copy().drop_duplicates('country').dropna()
     total_df=total_df[total_df.country!='International']
-    total_df=total_df[total_df.country!='World']
     total_df=total_df.reset_index(drop=True)
     DataframetoMysql(total_df,'country_iso_code')
     #Saving total data to database

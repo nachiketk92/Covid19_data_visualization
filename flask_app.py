@@ -3,6 +3,10 @@ import pymysql
 from flask_sqlalchemy import SQLAlchemy
 import _1_covid_old_data_ourworldindata , _3_covid_data_scrapping
 import pandas as pd
+from sqlalchemy import create_engine
+from bokeh.plotting import figure
+from bokeh import embed
+from world_plots import worldData_line_chart , worldData_Bar_chart
 
 
 
@@ -35,7 +39,7 @@ class Country_iso_code(db.Model):
     iso_code=db.Column(db.VARCHAR(15))
     country=db.Column(db.String(50))
 db.create_all()
-
+#Get data from scrapping and upload it to database
 _1_covid_old_data_ourworldindata.ourworldindataToDatabase()
 _3_covid_data_scrapping.dataScrappingWorldometer()
 #Specifing database login and connection requirments
@@ -61,9 +65,6 @@ try:
     cursorObject.execute(sqlQuery)
     #Fetch all the rows
     data = cursorObject.fetchall()
-
-
-
 except Exception as e:
     print("Exeception occured:{}".format(e))
 finally:
@@ -83,14 +84,25 @@ except Exception as e:
 finally:
     cursorObject.close()
 
+db_connection_str = 'mysql+pymysql://root:N@ch1ket@localhost/covid19'
+db_connection = create_engine(db_connection_str)
+world = pd.read_sql("SELECT  Distinct date,new_cases, total_cases, total_deaths,total_recovered FROM covid19_data where country = 'world' ", con=db_connection)
+
+plot1 = worldData_Bar_chart(world)
+plot2 = worldData_line_chart(world)
+
 
 #route base page
 @app.route("/")
 def home(): 
-    return render_template("home.html",data=data)
+    script_new_cases, div_new_cases = embed.components(plot1) 
+    script_line,div_line =embed.components(plot2)
+
+    return render_template("home.html",data=data,script=script_new_cases,div=div_new_cases,script1=script_line,div1=div_line)
 #rout about this site info
 @app.route('/about/')
 def about():
+    
     return render_template("about.html")
 
 #endpoint for search

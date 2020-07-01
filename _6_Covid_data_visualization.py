@@ -14,10 +14,15 @@ def multiple_line_subplots (df,country):
     sns.set(font_scale=1.5, style="whitegrid")
     #Create figure and plot space (axis object)
     fig, ax = plt.subplots(figsize=(8, 8))
-    # Add x-axis and y-axis
+    ax.spines["top"].set_visible(False)    
+    ax.spines["bottom"].set_visible(False)    
+    ax.spines["right"].set_visible(False)    
+    ax.spines["left"].set_visible(False)
+     # Add x-axis and y-axis
     ax.plot(df['date'],df['total_cases'],color='blue')
     ax.plot(df['date'],df['total_deaths'],color='red')
     ax.plot(df['date'],df['total_recovered'],color='green')
+    ax.set(xlabel="Date",ylabel="Total Cases",title="")
     #define legend
     ax.legend(['total_cases','total_deaths','total_recovered'])
     #seting margins so that plot will start from baseline
@@ -35,21 +40,6 @@ def multiple_line_subplots (df,country):
     #save plot with specific file name
     plt.savefig('%s_comparision.png'%country)
     
-def single_line_plot(df,country,data_column):
-    # Use white grid plot background from seaborn
-    sns.set(font_scale=1.5, style="whitegrid")
-    #Create figure and plot space (axis object)
-    fig, ax = plt.subplots(figsize=(8, 8))
-    # Add x-axis and y-axis
-    ax.plot(df['date'],df[data_column],color='blue')
-    ax.margins(x=0)
-    # Settitle and labels for axes
-    ax.set(xlabel="Date",ylabel="data",title="%s"%data_column)
-    fig.autofmt_xdate()
-    ax.fmt_xdata = mdates.DateFormatter('%Y-%m-%d')
-    ax.xaxis.set_major_locator(plt.MaxNLocator(9))
-    plt.setp(ax.get_xticklabels(), rotation=45, horizontalalignment='right')
-    plt.savefig('%s_%s.png'%(country,data_column))
 
 def pie_chart():
     #need to get total population of continent

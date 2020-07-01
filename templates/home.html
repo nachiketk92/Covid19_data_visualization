@@ -4,10 +4,18 @@
 <title>Covid 19 Data Visualization</title>
 <div class="home">
   <h1> This site was created solely for study purpose. </h1>
-  <p> covid-19 data</p>
 </div>
 {%endblock%}
-
+{% block body %}
+<div class="row mt-5"></div>
+{{ div | safe }}
+</div>
+{{ script | safe }}
+<div class="row mt-5"></div>
+{{ div1 | safe }}
+</div>
+{{ script1 | safe }}
+{% endblock %}
 {%block table%}
 <div class='Covid data table'>
   <table style="margin-left: 15px;" border="1">
@@ -28,6 +36,7 @@
       </tr>
     </thead>
     <tbody>
+      
       {% for row in data %} 
       <tr>   
         <td>{{row[1]}}</td>
@@ -49,4 +58,18 @@
   </table>
 </div>
 {% endblock %}
-  
+.submit-btn {
+  padding:8px 16px;
+  border-radius:4px;
+  margin-left:8px;
+  background-color:#ba32a0;
+  border:2px solid #fff;
+  color:#fff;
+  font-weight:bold;
+  transition: 0.2s;
+}
+
+.submit-btn:hover {
+  background-color:#fff;
+  color:#ba32a0;
+}

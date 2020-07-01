@@ -42,7 +42,7 @@ def dataScrappingWorldometer():
     df.columns=["country","total_cases","new_cases","total_deaths", "new_deaths","total_recovered","active_cases","serious","total_cases_per_million","total_deaths_per_million","total_tests"]
     #Insert new column date with time stamp
     df.insert(1,'date', np.full(len(df),datetime.date(datetime.now())))
-    df=df[df.country!='World']
+    
     df=df.reset_index(drop=True)
     df.replace(',', '', regex=True,inplace=True)
     df[["total_cases","new_cases","total_deaths", "new_deaths","total_recovered","active_cases","serious","total_tests"]]=df[["total_cases","new_cases","total_deaths", "new_deaths","total_recovered","active_cases","serious","total_tests"]].apply(pd.to_numeric,errors='coerce') 
