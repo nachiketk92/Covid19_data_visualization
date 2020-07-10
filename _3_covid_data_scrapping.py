@@ -10,7 +10,7 @@ import pandas as pd
 import numpy as np
 from  datetime import datetime
 from _4_saving_worldometer_data_to_database import DataframetoMysql 
-
+from _5_countriesByContinent import countryByContinent
 
 def dataScrappingWorldometer():   
      #MAke a get request to url
@@ -46,5 +46,14 @@ def dataScrappingWorldometer():
     df=df.reset_index(drop=True)
     df.replace(',', '', regex=True,inplace=True)
     df[["total_cases","new_cases","total_deaths", "new_deaths","total_recovered","active_cases","serious","total_tests"]]=df[["total_cases","new_cases","total_deaths", "new_deaths","total_recovered","active_cases","serious","total_tests"]].apply(pd.to_numeric,errors='coerce') 
+    #Creating new column continent
+    countries_list=df['country'].tolist()
+    continent=[]
+    for i in countries_list:
+        continent.append(countryByContinent(i))
+
+    #Inserting contient list to dataframe
+    df.insert(0,"continent",continent)
+
     #inserting data to existing database table
     DataframetoMysql(df)

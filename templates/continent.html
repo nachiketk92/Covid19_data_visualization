@@ -1,0 +1,47 @@
+{% extends "template.html" %}
+{%block head%}
+<title>Selet the Continent</title>
+{%endblock%}
+
+{% block body %}
+<select name= continents method="GET" action="/continent/">
+    <option value="{{continents[0]}}" selected>{{continents[0]}}</option>
+    <option value="{{continents[0]}}" selected>{{continents[1]}}</option>
+    <option value="{{continents[0]}}" selected>{{continents[2]}}</option>
+    <option value="{{continents[0]}}" selected>{{continents[3]}}</option>
+    <option value="{{continents[0]}}" selected>{{continents[4]}}</option>
+    <option value="{{continents[0]}}" selected>{{continents[5]}}</option>
+    <option value="{{continents[0]}}" selected>{{continents[6]}}</option>
+</select>
+
+<div class='Continents data table'>
+  <table style="margin-left: 15px;" border="1">
+    <thead>
+      <tr>
+        <th>Continent</th>
+        <th>Total Cases</th>
+        <th>New Cases</th>
+        <th>Total Deaths</th>
+        <th>New Deaths</th>
+        <th>Total Recovered</th>
+        <th>Active Cases</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      {% for row in data %} 
+      <tr>   
+        <td>{{row[0]}}</td>
+        <td>{{row[1]}}</td>
+        <td>{{row[2]}}</td>
+        <td>{{row[3]}}</td>
+        <td>{{row[4]}}</td>
+        <td>{{row[5]}}</td>
+        <td>{{row[6]}}</td>
+      </tr>
+      {% endfor %}        
+    </tbody>
+  </table>
+</div>
+
+  {% endblock %}

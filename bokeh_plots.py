@@ -7,7 +7,7 @@ import pandas as pd
 import datetime 
 
 
-def worldData_Bar_chart(df):
+def bokeh_Bar_chart(df):
     output_file('worldplot.html')
     #calculate date you want to start with
     lastdayfrom = datetime.date.today() + datetime.timedelta(-30)
@@ -42,7 +42,7 @@ def worldData_Bar_chart(df):
 
     return p
 
-def worldData_line_chart(df):
+def bokeh_line_chart(df):
     output_file('worldplot.html')
     #calculate date you want to start with
     df['date']= pd.to_datetime(df['date'])
@@ -84,3 +84,25 @@ def worldData_line_chart(df):
     s3.yaxis.axis_label = 'Number Of  Recovered Cases'
 
     return (row(s1, s2, s3))
+
+
+def bokeh_stacked_bar_chart(df):
+    df_temp=(df[df['date']==datetime.date(datetime.now())]).nlargest(5,['total_cases'])
+    countries=df_temp['country'].tolist()
+    cases=['Total Cases','Total Deaths','Total Recovered']
+    colors = ["#c9d9d3", "#718dbf", "#e84d60"]
+    data={'countries':countries,
+          'Total Cases':df_temp['total_cases'].tolist(),
+          'Total Deaths':df_temp['total_deaths'].tolist(),
+          'Total Recovered':df_temp['total_recovered'].tolist()}
+    p = figure(x_range=countries, plot_height=250, title="Top Five Countries",toolbar_location=None, tools="")
+    p.vbar_stack(cases, x='fruits', width=0.9, color=colors, source=data,legend_label=countries)
+    p.y_range.start = 0
+    p.x_range.range_padding = 0.1
+    p.xgrid.grid_line_color = None
+    p.axis.minor_tick_line_color = None
+    p.outline_line_color = None
+    p.legend.location = "top_left"
+    p.legend.orientation = "horizontal"
+
+    show(p)
