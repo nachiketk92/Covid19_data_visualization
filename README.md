@@ -1,4 +1,4 @@
-# Covid19_data_visualization
+# Covid19 Data Visualization
 >This project is created for the data analysis and visualization of COVID-19 data. The project uses Python for anything related to data and Flask for writing a webapp. This is a ongoing project intended for improving the working knowledge of python and leanring new tools and techniqiues as we make progress. 
 
 ## Table of contents
