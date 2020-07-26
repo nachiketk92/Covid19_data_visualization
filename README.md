@@ -87,8 +87,7 @@ There are 3 parts to this.
 
 
 To-do list:
-* Wow improvement to be done 1
-* Wow improvement to be done 2
+
 
 ## Status
 Project is: _in progress_ and there are improvements being made regularly. 
