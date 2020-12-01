@@ -127,11 +127,11 @@ def continent():
         cursor = connectionObject.cursor()
         # search by country
         cursor.execute("""SELECT  distinct country, date,total_cases,new_cases,total_deaths,new_deaths,total_recovered,
-active_cases,serious,total_cases_per_million,total_deaths_per_million,total_tests from covid19_data WHERE continent LIKE %s
+active_cases,serious,total_tests from covid19_data WHERE continent LIKE %s
  order by total_cases desc limit 10""" ,(continent))
         connectionObject.commit()
         toptenCountries = cursor.fetchall()
-    return render_template('continent.html', continents=continents,data=ContinentDataTable, doQuery=toptenCountries )
+    return render_template('continent.html', continents=continents,data=ContinentDataTable)
 ##########################################
 #route search page
 @app.route('/country/', methods=['GET', 'POST'])
